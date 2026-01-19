@@ -19,7 +19,22 @@ public class N8NService
     public async Task<AvaloniaList<string>?> ObtenerDispositivos()
     {
         var request = new HttpRequestMessage(HttpMethod.Get, "dispositivos");
-        
+        var response = await client.SendAsync(request);
+        var listaString = await response.Content.ReadAsStringAsync();
+        return JsonConvert.DeserializeObject<AvaloniaList<string>>(listaString);
+    }
+    
+    public async Task<AvaloniaList<string>?> ObtenerUsuarios()
+    {
+        var request = new HttpRequestMessage(HttpMethod.Get, "usuarios-streaming");
+        var response = await client.SendAsync(request);
+        var listaString = await response.Content.ReadAsStringAsync();
+        return JsonConvert.DeserializeObject<AvaloniaList<string>>(listaString);
+    }
+    
+    public async Task<AvaloniaList<string>?> ObtenerTitulos()
+    {
+        var request = new HttpRequestMessage(HttpMethod.Get, "titulos");
         var response = await client.SendAsync(request);
         var listaString = await response.Content.ReadAsStringAsync();
         return JsonConvert.DeserializeObject<AvaloniaList<string>>(listaString);
