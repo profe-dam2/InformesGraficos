@@ -2,6 +2,7 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 using Avalonia.Collections;
+using InformesGraficos.Models;
 using Newtonsoft.Json;
 
 namespace InformesGraficos.Services;
@@ -39,4 +40,12 @@ public class N8NService
         var listaString = await response.Content.ReadAsStringAsync();
         return JsonConvert.DeserializeObject<AvaloniaList<string>>(listaString);
     }
+    
+    public async Task<AvaloniaList<Categorias>?> ObtenerCategoriasFiltradas(string filtro)
+    {
+        var request = new HttpRequestMessage(HttpMethod.Get, "45b37d18-3c3f-463c-a4c4-3a46d6af325b/categorias/"+filtro);
+        var response = await client.SendAsync(request);
+        var listaString = await response.Content.ReadAsStringAsync();
+        return JsonConvert.DeserializeObject<AvaloniaList<Categorias>>(listaString);
+    } 
 }

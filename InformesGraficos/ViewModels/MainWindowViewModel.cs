@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Avalonia.Collections;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using InformesGraficos.Models;
 using InformesGraficos.Services;
 
 namespace InformesGraficos.ViewModels;
@@ -16,7 +17,25 @@ public partial class MainWindowViewModel : ViewModelBase
     [ObservableProperty] private AvaloniaList<string>? listaDispositivos=new();
     [ObservableProperty] private AvaloniaList<string>? listaUsuarios=new();
     [ObservableProperty] private AvaloniaList<string>? listaTitulos=new();
+    [ObservableProperty] private AvaloniaList<Categorias>? listaCategorias = new();
+    [ObservableProperty] private string filtro = string.Empty;
+    
+    [RelayCommand]
+    public async Task ObtenerCategoriasFiltradasAsync()
+    {
+        if (!String.IsNullOrEmpty(Filtro))
+        {
+            ListaCategorias = await n8nService.ObtenerCategoriasFiltradas(Filtro);
+        }
+        
+    }
 
+    [RelayCommand]
+    public async Task MostarPDFCategoriasAsync(Categorias categoria)
+    {
+        Url = "http://localhost:10000/reports/getCategoria/" + categoria.Id;
+    }
+    
     [RelayCommand]
     public async Task CargarDesplegablesAsync()
     {
