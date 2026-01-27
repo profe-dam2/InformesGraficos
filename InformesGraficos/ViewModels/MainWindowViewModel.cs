@@ -11,8 +11,8 @@ namespace InformesGraficos.ViewModels;
 public partial class MainWindowViewModel : ViewModelBase
 {
     private N8NService n8nService=new();
-    [ObservableProperty] private DateTime fecha1=DateTime.Now;
-    [ObservableProperty] private DateTime fecha2=DateTime.Now;
+    [ObservableProperty] private DateTimeOffset fecha1= new(DateTime.Now);
+    [ObservableProperty] private DateTimeOffset fecha2= new(DateTime.Now);
     [ObservableProperty] private string url;
     [ObservableProperty] private AvaloniaList<string>? listaDispositivos=new();
     [ObservableProperty] private AvaloniaList<string>? listaUsuarios=new();
@@ -59,8 +59,12 @@ public partial class MainWindowViewModel : ViewModelBase
     [RelayCommand]
     public async Task MostarPDFPorTituloAsync(string titulo)
     {
-        Url = "http://localhost:10000/reports/getSeries3/" + Fecha1.ToString("yyyy-MM-dd") + "/" + Fecha2.ToString("yyyy-MM-dd") + "/" + titulo;
+        Url = "http://localhost:10000/reports/getSeries3/" + 
+              Fecha1.ToString("yyyy-MM-dd") + "/" + 
+              Fecha2.ToString("yyyy-MM-dd") + "/" + 
+              titulo;
         Console.WriteLine(Url);
+        
     }
     
 

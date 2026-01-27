@@ -21,61 +21,76 @@
         <vm:MainWindowViewModel />
     </Design.DataContext>
     <Grid ColumnDefinitions="300,600" ShowGridLines="True">
-        <StackPanel>
-            <ComboBox Name="ComboDispositivos" HorizontalAlignment="Center" Margin="20"
-                      Width="120" SelectedIndex="0"
-                      ItemsSource="{Binding ListaDispositivos}" />
-            <Button Width="120" Content="MOSTRAR"
-                    Command="{Binding MostarPDFDispositivosCommand }"
-                    CommandParameter="{Binding ElementName=ComboDispositivos, 
+        <TabControl>
+            <TabControl.Items>
+                <TabItem Header="Barras">
+                    <StackPanel>
+                        <ComboBox Name="ComboDispositivos" HorizontalAlignment="Center" Margin="20"
+                                  Width="120" SelectedIndex="0"
+                                  ItemsSource="{Binding ListaDispositivos}" />
+                        <Button Width="120" Content="MOSTRAR"
+                                Command="{Binding MostarPDFDispositivosCommand }"
+                                CommandParameter="{Binding ElementName=ComboDispositivos, 
                     Path=SelectedItem}" />
 
-            <TextBlock HorizontalAlignment="Center"
-                       Text="Usuarios" Margin="0,40,0,0" />
-            <ComboBox Name="ComboUsuarios" Width="120"
-                      ItemsSource="{Binding ListaUsuarios}" />
-            <Button Content="MOSTRAR" Width="120" Margin="20"
-                    Command="{Binding MostarPDFDispositivoUsuarioCommand}"
-                    CommandParameter="{Binding ElementName=ComboUsuarios, Path=SelectedItem}" />
-            <TextBlock Text="Títulos" HorizontalAlignment="Center"
-                       Margin="0,40,0,0" />
-            <ComboBox Name="ComboTitulo" Width="150" ItemsSource="{Binding ListaTitulos}" />
-            <!-- <Calendar SelectedDate="{Binding Fecha1}"  -->
-            <!--             Margin="10"/> -->
-            <!-- <Calendar SelectedDate="{Binding Fecha2}"   -->
-            <!--             Margin="10"/> -->
-            <Button Content="MOSTRAR" Width="120" Margin="20"
-                    Command="{Binding MostarPDFPorTituloCommand}"
-                    CommandParameter="{Binding ElementName=ComboTitulo, Path=SelectedItem}" />
-            <TextBlock Text="BUSCAR POR CATEGORIA" HorizontalAlignment="Center" Margin="5" />
-            <AutoCompleteBox Name="CategoriaBox" IsTextCompletionEnabled="False"
-                             Background="White" Foreground="Black"
-                             FilterMode="None"
-                             MinimumPrefixLength="1" Height="30"
-                             MaxDropDownHeight="120"
-                             Width="150"
-                             HorizontalAlignment="Center"
-                             ItemsSource="{Binding ListaCategorias}"
-                             Text="{Binding Filtro}">
-                <Interaction.Behaviors>
-                    <EventTriggerBehavior EventName="TextChanged">
-                        <InvokeCommandAction
-                            Command="{Binding ObtenerCategoriasFiltradasCommand }" />
-                    </EventTriggerBehavior>
-                </Interaction.Behaviors>
-            </AutoCompleteBox>
-            <Button Content="MOSTRAR" Width="120" Margin="20"
-                    Command="{Binding MostarPDFCategoriasCommand }"
-                    CommandParameter="{Binding ElementName=CategoriaBox, 
+                        <TextBlock HorizontalAlignment="Center"
+                                   Text="Usuarios" Margin="0,40,0,0" />
+                        <ComboBox Name="ComboUsuarios" Width="120"
+                                  ItemsSource="{Binding ListaUsuarios}" />
+                        <Button Content="MOSTRAR" Width="120" Margin="20"
+                                Command="{Binding MostarPDFDispositivoUsuarioCommand}"
+                                CommandParameter="{Binding ElementName=ComboUsuarios, Path=SelectedItem}" />
+                        <TextBlock Text="Títulos" HorizontalAlignment="Center"
+                                   Margin="0,40,0,0" />
+                        <ComboBox Name="ComboTitulo" Width="150" ItemsSource="{Binding ListaTitulos}" />
+                        <DatePicker  SelectedDate="{Binding Fecha1, Mode=TwoWay}"
+                                    Margin="10"/>
+                        <DatePicker SelectedDate="{Binding Fecha2}"
+                                    Margin="10"/>
+                        <Button Content="MOSTRAR" Width="120" Margin="20"
+                                Command="{Binding MostarPDFPorTituloCommand}"
+                                CommandParameter="{Binding ElementName=ComboTitulo, 
+                                Path=SelectedItem}" />
+
+                    </StackPanel>
+
+                </TabItem>
+                <TabItem Header="Quesitos">
+                    <StackPanel>
+                        <TextBlock Text="BUSCAR POR CATEGORIA" HorizontalAlignment="Center" Margin="5" />
+                        <AutoCompleteBox Name="CategoriaBox" IsTextCompletionEnabled="False"
+                                         Background="White" Foreground="Black"
+                                         FilterMode="None"
+                                         MinimumPrefixLength="1" Height="30"
+                                         MaxDropDownHeight="120"
+                                         Width="150"
+                                         HorizontalAlignment="Center"
+                                         ItemsSource="{Binding ListaCategorias}"
+                                         Text="{Binding Filtro}">
+                            <Interaction.Behaviors>
+                                <EventTriggerBehavior EventName="TextChanged">
+                                    <InvokeCommandAction
+                                        Command="{Binding ObtenerCategoriasFiltradasCommand }" />
+                                </EventTriggerBehavior>
+                            </Interaction.Behaviors>
+                        </AutoCompleteBox>
+                        <Button Content="MOSTRAR" Width="120" Margin="20"
+                                Command="{Binding MostarPDFCategoriasCommand }"
+                                CommandParameter="{Binding ElementName=CategoriaBox, 
                     Path=SelectedItem}" />
-        </StackPanel>
+                    </StackPanel>
+                </TabItem>
+                <TabItem Header="Lineas">
+
+                </TabItem>
+            </TabControl.Items>
+        </TabControl>
         <StackPanel Grid.Column="1">
             <TextBlock Text="{Binding Url}" HorizontalAlignment="Center"
                        Margin="10" />
             <WebView Height="500" Width="500"
-                Url="{Binding Url}" />
+                     Url="{Binding Url}" />
         </StackPanel>
-
 
     </Grid>
 
